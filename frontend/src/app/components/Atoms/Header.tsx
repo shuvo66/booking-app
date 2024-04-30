@@ -29,6 +29,12 @@ export const Header = () => {
               >
                 register
               </Link>
+              <Link
+                to="/login"
+                className="flex bg-white items-center text-blue-600 px-3 rounded font-bold hover:bg-gray-100"
+              >
+                Sign In
+              </Link>
             </>
           ) : (
             <Link

@@ -2,14 +2,13 @@ import { ComponentType } from "react";
 import { authService } from "../../libs/auth";
 import { Navigate } from "react-router-dom";
 
-export const withoutAuth = <T extends object>(
+export const withAuth = <T extends object>(
   WrappedComponent: ComponentType<T>
 ) => {
   return (props: T) => {
     const token = authService.getToken();
-    if (token) {
-      authService.setToken(token);
-      return <Navigate to="/dashboard" />;
+    if (token === null) {
+      return <Navigate to="/" replace />;
     }
     return <WrappedComponent {...props} />;
   };

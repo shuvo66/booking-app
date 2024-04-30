@@ -12,6 +12,7 @@ type RegisterFormData = {
 export const Register = () => {
   const {
     register,
+    reset,
     watch,
     formState: { errors },
     handleSubmit,
@@ -25,6 +26,7 @@ export const Register = () => {
       lastName: value.lastName,
     };
     registraion(payload);
+    reset();
   });
 
   return (
