@@ -7,7 +7,7 @@ import {
 
 export class HttpService {
   constructor(
-    private getBaseURL: () => string,
+    private baseURL: string,
     private config: HttpServiceConfig = {}
   ) {}
 
@@ -27,8 +27,8 @@ export class HttpService {
     return this.request<T>("PATCH", url, JSON.stringify(body), options);
   }
 
-  delete<T>(url: string, body: unknown, options?: RequestOptions) {
-    return this.request<T>("DELETE", url, JSON.stringify(body), options);
+  delete<T>(url: string, options?: RequestOptions) {
+    return this.request<T>("DELETE", url, null, options);
   }
 
   upload<T>(url: string, formData: FormData, options?: RequestOptions) {
@@ -36,19 +36,13 @@ export class HttpService {
   }
 
   private async refreshToken() {
-    const baseURL = this.getBaseURL();
     const refreshToken = this.config.getRefreshToken?.();
-
-    if (!baseURL) {
-      throw new Error("Base URL is not defined");
-    }
-
     if (!refreshToken) {
       return null;
     }
 
     try {
-      const response = await fetch(`${baseURL}/refresh`, {
+      const response = await fetch(`${this.baseURL}/refresh`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -79,31 +73,33 @@ export class HttpService {
     body: RequestBody,
     options?: RequestOptions
   ): Promise<T> {
-    const baseURL = this.getBaseURL();
+    const requestURL = `${this.baseURL}/${url}`;
+
+    // Request headers
     const token = this.config.getToken?.();
-
-    if (!baseURL) {
-      throw new Error("Base URL is not defined");
-    }
-
-    const headers: HeadersInit = {
-      ...(body instanceof FormData
-        ? {}
-        : { "content-type": "application/json" }),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    const headers: RequestOptions["headers"] = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
       ...options?.headers,
     };
 
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    if (body instanceof FormData) {
+      delete headers["content-type"];
+    }
+
     // Send request
     try {
-      const response = await fetch(`${baseURL}/${url}`, {
+      const response = await fetch(requestURL, {
         method,
         headers,
         body,
-        ...omit(options!, ["headers"]),
       });
 
-      if (response.ok || response.status === 302) {
+      if (response.ok) {
         try {
           return await response.json();
         } catch (error) {
@@ -111,9 +107,10 @@ export class HttpService {
         }
       }
 
+      // Unauthorised
+      // Create new access token using refresh token
       if (response.status === 401) {
         const newToken = await this.refreshToken();
-
         if (newToken) {
           return this.request<T>(method, url, body, options);
         }
@@ -122,7 +119,7 @@ export class HttpService {
       }
 
       const error = await response.json();
-      throw new Error(error || "Something went wrong");
+      throw new Error(error.message || "Something went wrong");
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error?.message || "Something went wrong");

@@ -5,7 +5,8 @@ import { HttpService } from "./httpService";
 export class AuthAPI {
   constructor(private http: HttpService) {}
   register(payload: RegisterPayload) {
-    return this.http.post("/api/auth/register", payload);
+    return this.http.post<API.RegisterResponse>("api/auth/register", payload);
   }
 }
-export const authAPI = new AuthAPI(config.apiUrl);
+export const httpService = new HttpService(config.apiUrl);
+export const authAPI = new AuthAPI(httpService);

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useAuth } from "./hooks/useAuth";
 
 type RegisterFormData = {
   firstName: string;
@@ -15,9 +16,15 @@ export const Register = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<RegisterFormData>();
-
-  const onSubmit = handleSubmit((v) => {
-    console.log(v);
+  const { register: registraion } = useAuth();
+  const onSubmit = handleSubmit((value: API.FormRegister) => {
+    const payload: API.RegisterPayload = {
+      email: value.email,
+      password: value.password,
+      firstName: value.firstName,
+      lastName: value.lastName,
+    };
+    registraion(payload);
   });
 
   return (

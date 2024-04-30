@@ -5,6 +5,10 @@ export type RegisterPayload = {
   lastName: string;
 };
 
+export type FormRegister = RegisterPayload & {
+  confirmPassword: string;
+};
+
 export type RegisterResponse = {
   message: string;
   data: Register;
