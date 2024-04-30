@@ -3,8 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import users from "./routes/user";
-mongoose.connect(process.env.MONGODB_DATABASE as string);
-
+mongoose.connect((process.env.MONGODB_DATABASE || "development") as string);
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

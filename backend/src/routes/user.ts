@@ -79,7 +79,18 @@ router.post("/login", loginValidation, async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production",
     });
 
-    return res.status(200).json({ message: "User Logged In." });
+    return res.status(200).json({
+      message: "User Logged In",
+      data: {
+        user: {
+          _id: existUser._id,
+          email: existUser?.email,
+          firstName: existUser?.firstName,
+          lastName: existUser?.lastName,
+        },
+        accessToken: token,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
