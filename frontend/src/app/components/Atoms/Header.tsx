@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { authService } from "../../libs/auth";
 
 export const Header = () => {
-  const isLoggedIn = true;
+  const token = authService.getToken();
+
+  const isLoggedIn = token;
   return (
     <div className="bg-blue-800 py-6">
       <div className="container mx-auto flex justify-between">
@@ -24,25 +27,28 @@ export const Header = () => {
                 My Hotels
               </Link>
               <Link
-                to="/register"
-                className="flex bg-white items-center text-blue-600 px-3 rounded font-bold hover:bg-gray-100"
+                to="/"
+                onClick={() => authService.removeTokens()}
+                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
               >
-                register
-              </Link>
-              <Link
-                to="/login"
-                className="flex bg-white items-center text-blue-600 px-3 rounded font-bold hover:bg-gray-100"
-              >
-                Sign In
+                Logged Out
               </Link>
             </>
           ) : (
-            <Link
-              to="/sign-in"
-              className="flex bg-white items-center text-blue-600 px-3 rounded font-bold hover:bg-gray-100"
-            >
-              Sign In
-            </Link>
+            <div className="flex items-center">
+              <Link
+                to="/register"
+                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded mr-2 font-bold hover:bg-gray-100"
+              >
+                Register
+              </Link>
+              <Link
+                to="/login"
+                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
+              >
+                Sign In
+              </Link>
+            </div>
           )}
         </span>
       </div>

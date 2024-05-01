@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { ToastContainer } from "react-toastify";
+import React, { useContext, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { Toast } from "../../components/Atoms/global/Toast";
 
 type ToastMessage = {
   messages: string;
@@ -19,11 +19,20 @@ type AppContextProviderProps = {
 };
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
+  const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
   return (
     <AppContext.Provider
-      value={{ showToast: (toastMessage) => console.log(toastMessage) }}
+      value={{
+        showToast: (toastMessage) => setToast(toastMessage),
+      }}
     >
-      <ToastContainer />
+      {toast && (
+        <Toast
+          message={toast?.messages}
+          type={toast?.type}
+          onClose={() => setToast(undefined)}
+        />
+      )}
 
       {children}
     </AppContext.Provider>
