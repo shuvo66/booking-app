@@ -12,4 +12,5 @@ const DashboardLayout = () => {
     </div>
   );
 };
-export default withAuth(DashboardLayout);
+const WrapperDashboardLayout = withAuth(DashboardLayout);
+export default WrapperDashboardLayout;

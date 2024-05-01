@@ -16,4 +16,5 @@ const HomeLayout = () => {
     </div>
   );
 };
-export default withoutAuth(HomeLayout);
+const WrapperHomeLayout = withoutAuth(HomeLayout);
+export default WrapperHomeLayout;

@@ -2,16 +2,17 @@ import { RouterProvider } from "react-router-dom";
 import routes from "./routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+import { AppContextProvider } from "./layouts/context/appContext";
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
-        <RouterProvider router={routes} />
-        <ToastContainer />
+        <AppContextProvider>
+          <RouterProvider router={routes} />
+        </AppContextProvider>
       </ErrorBoundary>
     </QueryClientProvider>
   );
