@@ -33,7 +33,6 @@ export class AuthService {
 
   listen(listner: Listner) {
     this.listners.add(listner);
-
     return () => this.listners.delete(listner);
   }
 }

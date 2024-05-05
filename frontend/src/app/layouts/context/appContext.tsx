@@ -1,6 +1,9 @@
 import React, { useContext, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Toast } from "../../components/Atoms/global/Toast";
+import { useQuery } from "@tanstack/react-query";
+import { authAPI } from "../../libs/api";
+import { verifyAPI } from "../../libs/api/verifyAPI";
 
 type ToastMessage = {
   messages: string;
@@ -20,6 +23,7 @@ type AppContextProviderProps = {
 
 export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
+
   return (
     <AppContext.Provider
       value={{

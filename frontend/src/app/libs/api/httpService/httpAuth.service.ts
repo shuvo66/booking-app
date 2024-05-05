@@ -5,9 +5,10 @@ export class HttpAuthService extends HttpService {
   constructor(getBaseURL: string, private auth: AuthService) {
     super(getBaseURL, {
       getToken: () => this.auth.getToken(),
-      getRefreshToken: () => this.auth.getRefreshToken(),
+      // getRefreshToken: () => this.auth.getRefreshToken(),
       onUpdateToken: (token: string) => this.auth.setToken(token),
-      onUnauthorised: () => this.auth.removeTokens(),
+      // onUnauthorised: () => this.auth.removeTokens(),
     });
+    console.log("sdf", this.auth.getToken());
   }
 }

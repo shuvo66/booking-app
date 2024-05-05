@@ -28,7 +28,7 @@ export const Header = () => {
               </Link>
               <Link
                 to="/"
-                onClick={() => authService.removeTokens()}
+                onClick={() => authService.removeToken()}
                 className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
               >
                 Logged Out

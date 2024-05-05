@@ -1,9 +1,10 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import User from "../model/user";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 import { check, validationResult } from "express-validator";
+import verifyToken from "../middleWare/auth";
 
 const router = express.Router();
 const key = process.env.JWT_SECRET_KEY as string;
@@ -94,6 +95,11 @@ router.post("/login", loginValidation, async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+// verification-token
+router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
+  res.status(200).send({ userID: req.userID });
 });
 
 export default router;

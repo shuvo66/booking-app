@@ -1,3 +1,4 @@
+import { setCookie } from "nookies";
 import {
   HttpServiceConfig,
   RefreshTokenResponse,
@@ -76,15 +77,16 @@ export class HttpService {
     const requestURL = `${this.baseURL}/${url}`;
 
     // Request headers
+
     const token = this.config.getToken?.();
-    const headers: RequestOptions["headers"] = {
+    const headers: any = {
       "Content-Type": "application/json",
       Accept: "application/json",
+      credentials: "include",
       ...options?.headers,
     };
-
     if (token) {
-      headers.Authorization = `Bearer ${token}`;
+      headers.Authorization = `auth_token ${token}`;
     }
 
     if (body instanceof FormData) {
@@ -96,6 +98,7 @@ export class HttpService {
       const response = await fetch(requestURL, {
         method,
         headers,
+        credentials: "include",
         body,
       });
 
