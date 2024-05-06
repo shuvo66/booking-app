@@ -4,6 +4,7 @@ import { authAPI } from "../../../libs/api";
 import { authService } from "../../../libs/auth";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../layouts/context/appContext";
+import { verifyAPI } from "../../../libs/api/verifyAPI";
 
 export const useAuth = () => {
   const navigator = useNavigate();
@@ -45,9 +46,22 @@ export const useAuth = () => {
     [loginMutation]
   );
 
+  const logoutMutation = useMutation({
+    mutationFn: () => verifyAPI.logout(),
+    onSuccess: (data) => {
+      showToast({ messages: data?.message, type: "SUCCESS" });
+      authService.removeTokens();
+      navigator("/");
+    },
+    onError: (error: Error) => {
+      showToast({ messages: error?.message, type: "ERROR" });
+    },
+  });
+
   return {
     register,
     loginHandler,
     registerValue: registerMutation,
+    logoutMutation,
   };
 };

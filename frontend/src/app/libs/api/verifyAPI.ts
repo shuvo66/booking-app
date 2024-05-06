@@ -7,6 +7,9 @@ export class VerifyAPI {
   verificationToken() {
     return this.http.get<{ userID: string }>("api/auth/validate-token");
   }
+  logout() {
+    return this.http.get<{ message: string }>("api/auth/log-out");
+  }
 }
 const httpService = new HttpAuthService(config.apiUrl, authService);
 export const verifyAPI = new VerifyAPI(httpService);

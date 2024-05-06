@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { authService } from "../../libs/auth";
+import { useAuth } from "../Auth/hooks/useAuth";
 
 export const Header = () => {
+  const { logoutMutation } = useAuth();
   const token = authService.getToken();
 
   const isLoggedIn = token;
+
   return (
     <div className="bg-blue-800 py-6">
       <div className="container mx-auto flex justify-between">
@@ -28,7 +31,7 @@ export const Header = () => {
               </Link>
               <Link
                 to="/"
-                onClick={() => authService.removeToken()}
+                onClick={() => logoutMutation.mutate()}
                 className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
               >
                 Logged Out
