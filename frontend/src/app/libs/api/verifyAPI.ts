@@ -10,6 +10,13 @@ export class VerifyAPI {
   logout() {
     return this.http.get<{ message: string }>("api/auth/log-out");
   }
+
+  resetPassword(payload: API.ResetPasswordPayload) {
+    return this.http.post<{ message: string }>(
+      "api/auth/reset-password",
+      payload
+    );
+  }
 }
 const httpService = new HttpAuthService(config.apiUrl, authService);
 export const verifyAPI = new VerifyAPI(httpService);

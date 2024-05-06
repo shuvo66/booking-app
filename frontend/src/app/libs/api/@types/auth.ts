@@ -47,3 +47,7 @@ export type LoginResponse = {
     accessToken: string;
   };
 };
+
+export type ResetPasswordPayload = {
+  email: string;
+};

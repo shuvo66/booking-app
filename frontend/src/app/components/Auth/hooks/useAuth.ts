@@ -58,10 +58,30 @@ export const useAuth = () => {
     },
   });
 
+  const resetPasswordMutation = useMutation({
+    mutationFn: (payload: API.ResetPasswordPayload) =>
+      verifyAPI.resetPassword(payload),
+    onSuccess: (data) => {
+      showToast({ messages: data?.message, type: "SUCCESS" });
+      navigator("/login");
+    },
+    onError: (error: Error) => {
+      showToast({ messages: error?.message, type: "ERROR" });
+    },
+  });
+
+  const resetPasswordHandler = useCallback(
+    (payload: API.ResetPasswordPayload) => {
+      resetPasswordMutation.mutate(payload);
+    },
+    [resetPasswordMutation]
+  );
+
   return {
     register,
     loginHandler,
     registerValue: registerMutation,
     logoutMutation,
+    resetPasswordHandler,
   };
 };

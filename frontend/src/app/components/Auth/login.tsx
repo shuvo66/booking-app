@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "./hooks/useAuth";
+import { Link } from "react-router-dom";
 
 type RegisterFormData = {
   firstName: string;
@@ -59,6 +60,12 @@ export const Login = () => {
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </label>
+      <div className="flex items-center justify-between">
+        <div></div>
+        <Link to={"/reset-password"} className="hover:text-[red]">
+          Reset your password ?
+        </Link>
+      </div>
 
       <span>
         <button
