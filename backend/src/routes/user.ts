@@ -1,10 +1,12 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import User from "../model/user";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+const nodemailer = require("nodemailer");
 
 import { check, validationResult } from "express-validator";
 import verifyToken from "../middleWare/auth";
+import { mailService } from "../mailService";
 
 const router = express.Router();
 const key = process.env.JWT_SECRET_KEY as string;
@@ -75,6 +77,7 @@ router.post("/login", loginValidation, async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ userID: existUser.id }, key, { expiresIn: "1d" });
+
     res.cookie("auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -108,6 +111,43 @@ router.get("/log-out", (req: Request, res: Response) => {
     expires: new Date(0),
   });
   res.status(200).json({ message: "successfully logout!" });
+});
+
+// reset password
+
+router.post("/reset-password", async (req: Request, res: Response) => {
+  const { email } = req.body;
+
+  try {
+    const existUser = await User.findOne({ email });
+    const plainPassword = await bcrypt.hash("jzeb_pgzf", 8);
+
+    if (existUser) {
+      await User.findByIdAndUpdate(existUser?._id, {
+        password: plainPassword,
+      });
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "atikul.shuvo6632@gmail.com",
+          pass: "jzeb pgzf zlsg pvgs",
+        },
+      });
+
+      // send mail with defined transport object
+      const info = await transporter.sendMail({
+        from: "atikul.shuvo6632@gmail.com",
+        to: email,
+        subject: "Booking-App : Reset Password OTP",
+        html: `Your OTP for reset password is <b>${"111111"}</b>`,
+      });
+
+      return res.status(200).json({
+        message: "Please check your email.we send to you a new password!",
+      });
+    }
+  } catch (err) {}
 });
 
 export default router;
