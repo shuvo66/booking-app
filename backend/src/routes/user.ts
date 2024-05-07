@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 import { check, validationResult } from "express-validator";
 import verifyToken from "../middleWare/auth";
-import { mailService } from "../mailService";
+import { generateString } from "../utils";
 
 const router = express.Router();
 const key = process.env.JWT_SECRET_KEY as string;
@@ -120,7 +120,8 @@ router.post("/reset-password", async (req: Request, res: Response) => {
 
   try {
     const existUser = await User.findOne({ email });
-    const plainPassword = await bcrypt.hash("jzeb_pgzf", 8);
+
+    const plainPassword = await bcrypt.hash(generateString(6), 8);
 
     if (existUser) {
       await User.findByIdAndUpdate(existUser?._id, {
@@ -139,8 +140,8 @@ router.post("/reset-password", async (req: Request, res: Response) => {
       const info = await transporter.sendMail({
         from: "atikul.shuvo6632@gmail.com",
         to: email,
-        subject: "Booking-App : Reset Password OTP",
-        html: `Your OTP for reset password is <b>${"111111"}</b>`,
+        subject: "Booking-App : Password Reset",
+        html: `Your reset password is: <b>${generateString(6)}</b>`,
       });
 
       return res.status(200).json({
