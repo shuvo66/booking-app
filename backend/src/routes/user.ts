@@ -114,40 +114,44 @@ router.get("/log-out", (req: Request, res: Response) => {
 });
 
 // reset password
-router.post("/reset-password", async (req: Request, res: Response) => {
-  const { email } = req.body;
+router.post(
+  "/reset-password",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    const { email } = req.body;
 
-  try {
-    const existUser = await User.findOne({ email });
+    try {
+      const existUser = await User.findOne({ email });
 
-    const plainPassword = await bcrypt.hash(generateString(6), 8);
+      const plainPassword = await bcrypt.hash(generateString(6), 8);
 
-    if (existUser) {
-      await User.findByIdAndUpdate(existUser?._id, {
-        password: plainPassword,
-      });
+      if (existUser) {
+        await User.findByIdAndUpdate(existUser?._id, {
+          password: plainPassword,
+        });
 
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "atikul.shuvo6632@gmail.com",
-          pass: "jzeb pgzf zlsg pvgs",
-        },
-      });
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "atikul.shuvo6632@gmail.com",
+            pass: "jzeb pgzf zlsg pvgs",
+          },
+        });
 
-      // send mail with defined transport object
-      const info = await transporter.sendMail({
-        from: "atikul.shuvo6632@gmail.com",
-        to: email,
-        subject: "Booking-App : Password Reset",
-        html: `Your reset password is: <b>${generateString(6)}</b>`,
-      });
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+          from: "atikul.shuvo6632@gmail.com",
+          to: email,
+          subject: "Booking-App : Password Reset",
+          html: `Your reset password is: <b>${generateString(6)}</b>`,
+        });
 
-      return res.status(200).json({
-        message: "Please check your email.we send to you a new password!",
-      });
-    }
-  } catch (err) {}
-});
+        return res.status(200).json({
+          message: "Please check your email.we send to you a new password!",
+        });
+      }
+    } catch (err) {}
+  }
+);
 
 export default router;
