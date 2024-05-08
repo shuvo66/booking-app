@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 import { check, validationResult } from "express-validator";
 import verifyToken from "../middleWare/auth";
-import { generateString } from "../utils";
+import { generateString } from "../utils/generatString";
 
 const router = express.Router();
 const key = process.env.JWT_SECRET_KEY as string;
@@ -114,7 +114,6 @@ router.get("/log-out", (req: Request, res: Response) => {
 });
 
 // reset password
-
 router.post("/reset-password", async (req: Request, res: Response) => {
   const { email } = req.body;
 
