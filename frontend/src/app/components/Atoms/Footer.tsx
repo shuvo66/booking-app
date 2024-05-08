@@ -8,10 +8,10 @@ const Footer = () => {
           Booking.com
         </h6>
         <div className="flex items-start gap-5">
-          <Link to={"/"} className="text-white text-xl font-bold">
+          <Link to={"/"} className="text-white text-sm font-bold">
             Privacy Policy
           </Link>
-          <Link to={"/"} className="text-white text-xl font-bold">
+          <Link to={"/"} className="text-white text-sm font-bold">
             Term & Services
           </Link>
         </div>

@@ -15,4 +15,5 @@ const AuthLayout = () => {
     </div>
   );
 };
-export default withoutAuth(AuthLayout);
+const AuthLayoutWrapper = withoutAuth(AuthLayout);
+export default AuthLayoutWrapper;

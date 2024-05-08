@@ -4,9 +4,7 @@ import { useAuth } from "../Auth/hooks/useAuth";
 
 export const Header = () => {
   const { logoutMutation } = useAuth();
-  const token = authService.getToken();
-
-  const isLoggedIn = token;
+  const isLoggedIn = authService.getToken();
 
   return (
     <div className="bg-blue-800 py-6">

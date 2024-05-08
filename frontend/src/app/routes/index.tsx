@@ -10,9 +10,8 @@ const routes = createBrowserRouter([
     element: <HomeLayout />,
     children: [
       {
-        path: "home",
         index: true,
-        element: <p>home</p>,
+        element: <p>landing-home</p>,
       },
     ],
   },
@@ -21,7 +20,7 @@ const routes = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "homes",
+        path: "dashboard-homes",
         element: <p>dashboard</p>,
       },
     ],

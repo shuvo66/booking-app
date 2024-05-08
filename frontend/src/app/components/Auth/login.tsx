@@ -14,6 +14,7 @@ type RegisterFormData = {
 
 export const Login = () => {
   const [isVisible, setVisible] = useState<boolean>(false);
+
   const {
     register,
     reset,
