@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layouts/homeLayout";
 import { AUTH_ROUTES } from "../components/Auth/AuthRoutes";
 import DashboardLayout from "../layouts/dashboardLayout";
+import Hotels from "../containers/Hotels";
+import Booking from "../containers/Booking";
 
 const routes = createBrowserRouter([
   ...AUTH_ROUTES,
@@ -20,8 +22,12 @@ const routes = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "dashboard-homes",
-        element: <p>dashboard</p>,
+        path: "hotels",
+        element: <Hotels />,
+      },
+      {
+        path: "booking",
+        element: <Booking />,
       },
     ],
   },
