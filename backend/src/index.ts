@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
 import fileUpload from "express-fileupload";
 import fileUploads from "./routes/fileUploads";
+import hotel from "./routes/hotel";
+
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -33,6 +35,7 @@ app.use(
 );
 
 app.use("/api/auth", users);
+app.use("/api/dashboard/hotel", hotel);
 app.use("/api/file", fileUploads);
 app.listen(5000, () => {
   console.log(`server running..localHost:${5000}`);
