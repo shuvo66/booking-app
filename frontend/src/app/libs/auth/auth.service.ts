@@ -4,7 +4,7 @@ export class AuthService {
   private listners = new Set<Listner>();
 
   getToken() {
-    return localStorage.getItem("token");
+    return localStorage.getItem("auth_token");
   }
 
   getRefreshToken() {
@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   setToken(token: string) {
-    localStorage.setItem("token", token);
+    localStorage.setItem("auth_token", token);
     this.listners.forEach((listner) => listner(token));
   }
 
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   removeTokens() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("auth_token");
     localStorage.removeItem("refreshToken");
     this.listners.forEach((listner) => listner(null));
   }

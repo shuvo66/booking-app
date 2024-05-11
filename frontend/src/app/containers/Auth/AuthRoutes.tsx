@@ -1,8 +1,9 @@
 import { RouteObject } from "react-router-dom";
 import AuthLayout from "../../layouts/authLayout";
-import { Register } from "./Register";
-import { Login } from "./login";
+
 import { ResetPassword } from "./PasswordReset";
+import Login from "./login";
+import Register from "./Register";
 
 export const AUTH_ROUTES: RouteObject[] = [
   {

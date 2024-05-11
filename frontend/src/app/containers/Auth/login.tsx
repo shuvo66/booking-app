@@ -12,7 +12,7 @@ type RegisterFormData = {
   confirmPassword: string;
 };
 
-export const Login = () => {
+const Login = () => {
   const [isVisible, setVisible] = useState<boolean>(false);
 
   const {
@@ -100,3 +100,4 @@ export const Login = () => {
     </form>
   );
 };
+export default Login;

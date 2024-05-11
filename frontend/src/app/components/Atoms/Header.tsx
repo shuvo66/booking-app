@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { authService } from "../../libs/auth";
-import { useAuth } from "../Auth/hooks/useAuth";
+import { useAuth } from "../../containers/Auth/hooks/useAuth";
 
 export const Header = () => {
   const { logoutMutation } = useAuth();
