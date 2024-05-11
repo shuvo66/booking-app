@@ -28,7 +28,6 @@ router.post(
       hotel.save();
       res.status(201).json({
         message: "Hotel create succefully!",
-        data: { hotel },
       });
     } catch (e) {
       console.log(e);
