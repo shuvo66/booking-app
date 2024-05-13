@@ -16,6 +16,7 @@ export default {
       tableHeadingColor: "#1e1e1e",
       card: "#fafafa",
       red: "#FF2400",
+      green: "#0B6623",
     },
   },
   plugins: [],

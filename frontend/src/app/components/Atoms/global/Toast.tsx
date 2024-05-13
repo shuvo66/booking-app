@@ -18,8 +18,8 @@ export const Toast = ({ message, type, onClose }: ToastProps) => {
 
   const styles =
     type === "SUCCESS"
-      ? "fixed right-2 top-2 bg-green-600 text-white p-4 py-2 capitalize rounded-sm"
-      : "fixed right-2 top-2 bg-red-600 text-white p-4 py-2 capitalize rounded-sm";
+      ? "fixed right-2 top-2 bg-green text-white p-4 py-2 capitalize rounded-sm"
+      : "fixed right-2 top-2 bg-red text-white p-4 py-2 capitalize rounded-sm";
 
   return <div className={styles}>{message}</div>;
 };
