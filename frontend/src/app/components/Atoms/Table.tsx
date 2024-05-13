@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { useHotel } from "../../containers/Hotels/hooks/usehotel";
 
 type TableProps = {
   list?: API.HotelList[];
 };
 export const Table = ({ list }: TableProps) => {
+  const { dltHotel } = useHotel({});
+
   return (
     <div className="my-5 shadow-md">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -64,6 +67,14 @@ export const Table = ({ list }: TableProps) => {
                 >
                   Edit
                 </Link>
+              </td>
+              <td className="px-6 py-4 pl-0 text-right capitalize">
+                <button
+                  onClick={() => dltHotel.mutate(v._id)}
+                  className="bg-red text-white pt-[8px] pb-[8px] pl-[15px] pr-[15px] rounded font-bold hover:bg-blue-500 text-sm"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

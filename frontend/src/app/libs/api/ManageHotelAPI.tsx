@@ -22,6 +22,12 @@ class ManageHotelAPI {
       payload
     );
   }
+
+  deleteHotel(id: string) {
+    return this.http.delete<{ message: string }>(
+      `api/dashboard/hotel/hotel-delete/${id}`
+    );
+  }
 }
 const httpAuthService = new HttpAuthService(config.apiUrl, authService);
 export const manageHotelAPI = new ManageHotelAPI(httpAuthService);

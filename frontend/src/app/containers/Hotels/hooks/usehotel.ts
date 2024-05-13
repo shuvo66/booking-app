@@ -64,9 +64,27 @@ export const useHotel = ({ onSuccess }: HotelProps) => {
       showToast({ messages: error?.message, type: "ERROR" });
     },
   });
+
+  //delete hotel
+
+  const dltHotel = useMutation({
+    mutationFn: (id: string) => manageHotelAPI.deleteHotel(id),
+    mutationKey: ["delete-hotel"],
+    onSuccess: (data) => {
+      showToast({ messages: data.message, type: "SUCCESS" });
+      queryClient.invalidateQueries({
+        queryKey: ["hotel-list"],
+        refetchType: "active",
+      });
+    },
+    onError: (error: Error) => {
+      showToast({ messages: error?.message, type: "ERROR" });
+    },
+  });
   return {
     createHotel,
     updateHotel,
+    dltHotel,
     hotelList: data,
     singleList: singleList[0],
   };
