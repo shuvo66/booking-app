@@ -41,7 +41,7 @@ const Register = () => {
     >
       <h2 className="text-3xl font-bold text-center mb-2">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5">
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-primary text-sm font-bold flex-1">
           First Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
@@ -49,10 +49,10 @@ const Register = () => {
             placeholder="Enter First-Name"
           ></input>
           {errors.firstName && (
-            <span className="text-red-500">{errors.firstName.message}</span>
+            <span className="text-red">{errors.firstName.message}</span>
           )}
         </label>
-        <label className="text-gray-700 text-sm font-bold flex-1">
+        <label className="text-primary text-sm font-bold flex-1">
           Last Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
@@ -60,11 +60,11 @@ const Register = () => {
             placeholder="Enter Last-Name"
           ></input>
           {errors.lastName && (
-            <span className="text-red-500">{errors.lastName.message}</span>
+            <span className="text-red">{errors.lastName.message}</span>
           )}
         </label>
       </div>
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label className="text-primary text-sm font-bold flex-1">
         Email
         <input
           type="email"
@@ -73,10 +73,10 @@ const Register = () => {
           placeholder="Enter Mail"
         ></input>
         {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
+          <span className="text-red">{errors.email.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1 relative">
+      <label className="text-primary text-sm font-bold flex-1 relative">
         Password
         <input
           type={isVisible ? "text" : "password"}
@@ -104,10 +104,10 @@ const Register = () => {
           />
         )}
         {errors.password && (
-          <span className="text-red-500">{errors.password.message}</span>
+          <span className="text-red">{errors.password.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1 relative">
+      <label className="text-primary text-sm font-bold flex-1 relative">
         Confirm Password
         <input
           type={isConfirmVisible ? "text" : "password"}
@@ -137,13 +137,13 @@ const Register = () => {
           />
         )}
         {errors.confirmPassword && (
-          <span className="text-red-500">{errors.confirmPassword.message}</span>
+          <span className="text-red">{errors.confirmPassword.message}</span>
         )}
       </label>
       <span>
         <button
           type="submit"
-          className="bg-blue-600 text-white p-4 py-2 rounded font-bold hover:bg-blue-500 text-sm"
+          className="bg-blue-600 text-white bg-primary p-4 py-2 rounded font-bold hover:bg-blue-500 text-sm hover:opacity-[.5]"
         >
           Create Account
         </button>

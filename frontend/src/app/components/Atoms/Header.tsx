@@ -7,7 +7,7 @@ export const Header = () => {
   const isLoggedIn = authService.getToken();
 
   return (
-    <div className="bg-blue-800 py-6">
+    <div className="bg-primary py-6">
       <div className="container mx-auto flex justify-between">
         <span className="text-3xl text-white font-bold tracking-tight">
           <Link to="/">Booking.com</Link>
@@ -30,7 +30,7 @@ export const Header = () => {
               <Link
                 to="/"
                 onClick={() => logoutMutation.mutate()}
-                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
+                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:opacity-[.5]"
               >
                 Logged Out
               </Link>
@@ -39,13 +39,13 @@ export const Header = () => {
             <div className="flex items-center">
               <Link
                 to="/register"
-                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded mr-2 font-bold hover:bg-gray-100"
+                className="flex bg-white items-center text-primary p-3 py-1 rounded mr-2 font-bold hover:opacity-[.5]"
               >
                 Register
               </Link>
               <Link
                 to="/login"
-                className="flex bg-white items-center text-blue-600 p-3 py-1 rounded font-bold hover:bg-gray-100"
+                className="flex bg-white items-center text-primary p-3 py-1 rounded font-bold hover:opacity-[.5]"
               >
                 Sign In
               </Link>

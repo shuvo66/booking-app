@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { manageHotelAPI } from "../../../libs/api";
 import { useAppContext } from "../../../layouts/context/appContext";
 
@@ -8,6 +8,7 @@ type HotelProps = {
 export const useHotel = ({ onSuccess }: HotelProps) => {
   const { showToast } = useAppContext();
 
+  // Create hotel
   const createHotel = useMutation({
     mutationFn: (payload: API.HotelFormData) =>
       manageHotelAPI.createHotel(payload),
@@ -20,7 +21,15 @@ export const useHotel = ({ onSuccess }: HotelProps) => {
       showToast({ messages: error?.message, type: "ERROR" });
     },
   });
+
+  // hotel list
+  const { data } = useQuery({
+    queryKey: ["hotel-list"],
+    queryFn: () => manageHotelAPI.hotelList(),
+  });
+
   return {
     createHotel,
+    hotelList: data,
   };
 };

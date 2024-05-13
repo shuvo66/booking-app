@@ -3,6 +3,7 @@ import { useAuth } from "./hooks/useAuth";
 import { Link } from "react-router-dom";
 import { EyeOff, Eye } from "lucide-react";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 type RegisterFormData = {
   firstName: string;
@@ -39,23 +40,35 @@ const Login = () => {
     >
       <h2 className="text-3xl font-bold text-center">Sign-in</h2>
 
-      <label className="text-gray-700 text-sm font-bold flex-1">
+      <label
+        className={twMerge(
+          errors?.email
+            ? "text-red text-sm font-bold flex-1"
+            : "text-primary text-sm font-bold flex-1"
+        )}
+      >
         Email
         <input
           type="email"
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal text-primary"
           {...register("email", { required: "This field is required" })}
           placeholder="Enter Mail"
         ></input>
         {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
+          <span className="text-red">{errors.email.message}</span>
         )}
       </label>
-      <label className="text-gray-700 text-sm font-bold flex-1 relative">
+      <label
+        className={twMerge(
+          errors?.password
+            ? "text-red text-sm font-bold flex-1"
+            : "text-primary text-sm font-bold flex-1"
+        )}
+      >
         Password
         <input
           type={isVisible ? "text" : "password"}
-          className="border rounded w-full py-1 px-2 font-normal"
+          className="border rounded w-full py-1 px-2 font-normal text-primary"
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -79,12 +92,15 @@ const Login = () => {
           />
         )}
         {errors.password && (
-          <span className="text-red-500">{errors.password.message}</span>
+          <span className="text-red">{errors.password.message}</span>
         )}
       </label>
       <div className="flex items-center justify-between">
         <div></div>
-        <Link to={"/reset-password"} className="hover:text-[red]">
+        <Link
+          to={"/reset-password"}
+          className="font-bold-[600] hover:text-primary hover:font-bold-[600]"
+        >
           Forgot password ?
         </Link>
       </div>
@@ -92,7 +108,7 @@ const Login = () => {
       <span>
         <button
           type="submit"
-          className="bg-blue-600 text-white p-4 py-2 rounded font-bold hover:bg-blue-500 text-sm"
+          className="bg-primary text-white p-4 py-2 rounded font-bold hover:bg-blue-500 text-sm hover:opacity-[.5]"
         >
           Login
         </button>

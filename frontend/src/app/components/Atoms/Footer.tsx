@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" bg-blue-800 p-4">
+    <div className=" bg-primary p-4">
       <div className="container mx-auto flex justify-between items-center">
         <h6 className="text-Capitalize text-3xl text-white font-bold">
           Booking.com
