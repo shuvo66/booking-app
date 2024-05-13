@@ -15,6 +15,13 @@ class ManageHotelAPI {
   hotelList() {
     return this.http.get<API.HotelResponse>("api/dashboard/hotel/hotel-list");
   }
+
+  updateHotel(id: string, payload: API.HotelFormData) {
+    return this.http.put<{ message: string }>(
+      `api/dashboard/hotel/edit-hotel/${id}`,
+      payload
+    );
+  }
 }
 const httpAuthService = new HttpAuthService(config.apiUrl, authService);
 export const manageHotelAPI = new ManageHotelAPI(httpAuthService);

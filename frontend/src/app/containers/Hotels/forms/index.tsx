@@ -6,23 +6,26 @@ import GuestsSection from "./GuestSection";
 import TypeSection from "./TypeSection";
 import { useHotel } from "../hooks/usehotel";
 import { Cards } from "../../../components/Atoms/Card";
+import { useParams } from "react-router-dom";
 
 const MangeHotelForm = () => {
   const { singleList } = useHotel({});
+  const { id } = useParams();
 
   const formData = useForm<API.HotelFormData>({
     defaultValues: { ...singleList },
   });
 
   const { handleSubmit, reset } = formData;
-  const { createHotel } = useHotel({
+  const { createHotel, updateHotel } = useHotel({
     onSuccess: () => {
       reset();
     },
   });
   const onSubmit = handleSubmit((payload: API.HotelFormData) => {
-    createHotel.mutate(payload);
+    id ? updateHotel.mutate({ id, payload }) : createHotel.mutate(payload);
   });
+
   return (
     <Cards
       children={
