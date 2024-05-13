@@ -1,12 +1,6 @@
 import { ManageHotel } from "./component/ManageHotel";
-import { MangeHotelForm } from "./forms";
 
 const Hotels = () => {
-  return (
-    <div>
-      <MangeHotelForm />
-      <ManageHotel />
-    </div>
-  );
+  return <ManageHotel />;
 };
 export default Hotels;

@@ -25,6 +25,7 @@ export type HotelList = {
   facilities: string[];
   imageFiles: FileList;
   image: string;
+  imageUrls?: string;
   adultCount: number;
   childCount: number;
 };

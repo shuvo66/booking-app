@@ -4,6 +4,7 @@ import { AUTH_ROUTES } from "../containers/Auth/AuthRoutes";
 import DashboardLayout from "../layouts/dashboardLayout";
 import Hotels from "../containers/Hotels";
 import Booking from "../containers/Booking";
+import MangeHotelForm from "../containers/Hotels/forms";
 
 const routes = createBrowserRouter([
   ...AUTH_ROUTES,
@@ -23,7 +24,16 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "hotels",
-        element: <Hotels />,
+        children: [
+          {
+            index: true,
+            element: <Hotels />,
+          },
+          {
+            path: ":type/:id?",
+            element: <MangeHotelForm />,
+          },
+        ],
       },
       {
         path: "booking",
