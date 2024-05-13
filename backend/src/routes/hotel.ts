@@ -5,22 +5,23 @@ import Hotel from "../model/hotel";
 import { body } from "express-validator";
 const router = express.Router();
 
-const createHotelValidation = [
-  body("name", "Name is requried!").isString(),
-  body("city", "City is requried!").isString(),
-  body("country", "Country is requried!").isString(),
-  body("description", "description is requried!").isArray(),
-  body("type", "Type is required!").isString(),
-  body("facilities", "Facilities is required!").isString(),
-  body("pricePerNight", "Price Per Night is required!").isNumeric(),
-  body("adultCount", "Adult Count is required!").isNumeric(),
-  body("childCount", "Child Count is required!").isNumeric(),
+const createAndEditHotelValidation = [
+  body("name").notEmpty().withMessage("Name is requried!"),
+  body("city").notEmpty().withMessage("City is requried!"),
+  body("country").notEmpty().withMessage("Country is requried!"),
+  body("description").notEmpty().withMessage("Description is requried!"),
+  body("type").notEmpty().withMessage("Type is requried!"),
+  body("facilities").notEmpty().withMessage("Facilities is requried!"),
+  body("pricePerNight").notEmpty().withMessage("Price Per-Night is requried!"),
+  body("adultCount").notEmpty().withMessage("Adult-Count is requried!"),
+  body("childCount").notEmpty().withMessage("child-Count is requried!"),
 ];
 
 // Create Hotel
 router.post(
   "/create-hotel",
-  createHotelValidation,
+  createAndEditHotelValidation,
+  verifyToken,
   async (req: Request, res: Response) => {
     try {
       const newHotel: HotelType = req.body;
@@ -29,6 +30,31 @@ router.post(
       res.status(201).json({
         message: "Hotel create succefully!",
       });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
+
+router.post(
+  "/edit-hotel/:hotelid",
+  createAndEditHotelValidation,
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const hotelId = req.params.hotelid;
+      if (!hotelId) {
+        return res.status(400).json({ message: "Hotel not found" });
+      }
+
+      const hotel = await Hotel.findByIdAndUpdate(hotelId, { ...req.body });
+
+      if (!hotel) {
+        return res.status(400).json({ message: "Hotel not found" });
+      }
+      await hotel.save();
+      res.status(200).json({ message: "update seccessfully!" }).send();
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: "Something went wrong" });

@@ -10,10 +10,9 @@ const hotelSchema = new mongoose.Schema({
   starRating: { type: Number, require: true },
   imageUrls: { type: String, require: true },
   type: { type: String, require: true },
-  adultCount: { type: Number, require: false },
-  childCount: { type: String, require: false },
+  adultCount: { type: Number, require: true },
+  childCount: { type: Number, require: true },
   facilities: [{ type: String, require: true }],
-  lastUpdated: { type: Date, require: true },
 });
 const hotel = mongoose.model<HotelType>("Hotel", hotelSchema);
 export default hotel;
