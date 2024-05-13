@@ -37,7 +37,7 @@ router.post(
   }
 );
 
-router.post(
+router.put(
   "/edit-hotel/:hotelid",
   createAndEditHotelValidation,
   verifyToken,
@@ -75,4 +75,24 @@ router.get("/hotel-list", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+// Hotel delete
+router.delete(
+  "/hotel-delete/:hotelId",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const hotelId = req.params.hotelId;
+      if (!hotelId) {
+        return res.status(400).json({ message: "Hotel not found" });
+      }
+
+      const removeHotel = await Hotel.findByIdAndDelete(hotelId);
+      res.status(200).json({ message: "Delete successfully!" });
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
+);
 export default router;
