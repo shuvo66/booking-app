@@ -5,6 +5,7 @@ import DashboardLayout from "../layouts/dashboardLayout";
 import Hotels from "../containers/Hotels";
 import Booking from "../containers/Booking";
 import MangeHotelForm from "../containers/Hotels/forms";
+import ExploreTrending from "../home-container/ExploreTrending";
 
 const routes = createBrowserRouter([
   ...AUTH_ROUTES,
@@ -14,7 +15,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <p>landing-home</p>,
+        element: <ExploreTrending />,
       },
     ],
   },
